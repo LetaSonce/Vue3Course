@@ -10,9 +10,9 @@
   </head>
   <body>
     <div id="app">
-        <div class="nav-bar"></div>
-        <div class="cart">Cart ({{ cart }})</div>
-      <product-display :premium="premium"></product-display>
+      <div class="nav-bar"></div>
+      <div class="cart">Cart ({{ cart.length }})</div>
+      <product-display :premium="premium" @add-to-cart="updateCart" @delete-from-cart="cleanCart"></product-display>
       <product-details :details="[]"></product-details>
       
     </div>
@@ -23,6 +23,8 @@
     <!-- Import Component -->
     <script src="./components/ProductDisplay.js"></script>
     <script src="./components/ProductDetails.js"></script>
+    <script src="./components/ReviewForm.js"></script>
+    <script src="./components/ReviewList.js"></script>
 
     <!-- Mount App -->
     <script>

@@ -39,9 +39,19 @@ app.component('product-display', {
               >
               Add to Cart
             </button>
+            <button 
+              class="button" 
+              :class="{ disabledButton: !inStock }"
+              :disabled="!inStock"
+              @click="deleteFromCart"
+              >
+              Delete Cart
+            </button>
             <a :href="url">Made by Vue Mastery</a>
         </div>
     </div>
+    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+    <review-form @review-submitted="addReview"></review-form>
 </div>`,
 data() {
     return {
@@ -66,6 +76,7 @@ data() {
                 quantity: 0,
             },
         ],
+        reviews: [],
         styles: {
             color: 'red',
             fontSize: '14px'
@@ -76,10 +87,16 @@ data() {
 
 methods: {
     addToCart() {
-        this.cart += 1;
+        this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
     },
     updateVariant(index) {
         this.selectedVariant = index
+    },
+    deleteFromCart() {
+        this.$emit('delete-from-cart', this.variants[this.selectedVariant].id)
+    },
+    addReview(review) {
+        this.reviews.push(review)
     }
 },
 
